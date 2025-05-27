@@ -21,7 +21,7 @@ func (m model) View() string {
 		Border(lipgloss.NormalBorder()).
 		BorderForeground(lipgloss.Color("241")).
 		Padding(0, 1).
-		Render("Einheiten:\n")
+		Render(fmt.Sprintf("Einheiten:\nBewohner: %v\nMax: %v\n", m.pop, m.popMax))
 
 	topRow := lipgloss.JoinHorizontal(lipgloss.Top, leftBox, rightBox)
 

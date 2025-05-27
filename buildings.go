@@ -20,4 +20,36 @@ var buildingDefs = map[string]BuildingMeta{
 			m.build.Houses++
 		},
 	},
+	"mine": {
+		Name: "Mine",
+		BaseCost: ResourceSet{
+			Stone: 5,
+		},
+		Multiplier: 1.15,
+		Effect: func(m *model) {
+			m.res.Gold++
+		},
+	},
+	"field": {
+		Name: "Field",
+		BaseCost: ResourceSet{
+			Gold: 1,
+		},
+		Multiplier: 1.15,
+		Effect: func(m *model) {
+			m.res.Wood++
+		},
+	},
+	"forest": {
+		Name: "Forest",
+		BaseCost: ResourceSet{
+			Wood: 3,
+			Gold: 1,
+		},
+		Multiplier: 1.15,
+		Effect: func(m *model) {
+			m.res.Wood++
+			m.res.Wood++
+		},
+	},
 }

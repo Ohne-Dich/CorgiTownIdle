@@ -14,6 +14,7 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		case tea.KeyEnter:
 			cmdText := strings.TrimSpace(m.input)
 			m.input = ""
+			populationIdle(&m)
 
 			if cmdText != "" {
 				m.log = append(m.log, "> "+cmdText)
