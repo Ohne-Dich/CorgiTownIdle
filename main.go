@@ -22,6 +22,7 @@ func main() {
 		},
 		pop:    3,
 		popMax: 5,
+		lang:   "ger",
 	}
 
 	finalModel, err := tea.NewProgram(m).Run()

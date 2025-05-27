@@ -1,7 +1,6 @@
 package main
 
 const maxVisibleLogLines = 10
-const idleCostIncrease = 1.15
 
 type ResourceSet struct {
 	Wood  int
@@ -23,4 +22,5 @@ type model struct {
 	pop          int
 	popMax       int
 	scrollOffset int
+	lang         string
 }

@@ -2,6 +2,8 @@ package main
 
 import (
 	"fmt"
+	"reflect"
+	"strings"
 
 	"github.com/charmbracelet/lipgloss"
 )
@@ -12,7 +14,7 @@ func (m model) View() string {
 		Border(lipgloss.NormalBorder()).
 		BorderForeground(lipgloss.Color("241")).
 		Padding(0, 1).
-		Render(fmt.Sprintf("Holz: %d\nStein: %d\nBevölkerung: %d", m.res.Wood, m.res.Stone, m.pop))
+		Render(renderStructFields(m.res, m.lang))
 
 	rightBox := lipgloss.NewStyle().
 		Width(30).
@@ -24,7 +26,7 @@ func (m model) View() string {
 	topRow := lipgloss.JoinHorizontal(lipgloss.Top, leftBox, rightBox)
 
 	logStyle := lipgloss.NewStyle().
-		Width(40).
+		Width(62).
 		Height(maxVisibleLogLines+2). // +2 wegen Titel und Padding
 		Padding(0, 1).
 		Border(lipgloss.NormalBorder()).
@@ -39,6 +41,24 @@ func (m model) View() string {
 		Render("> " + m.input)
 
 	return lipgloss.JoinVertical(lipgloss.Left, topRow, logView, input)
+}
+
+func renderStructFields(data any, lang string) string {
+	v := reflect.ValueOf(data)
+	t := reflect.TypeOf(data)
+
+	var sb strings.Builder
+	for i := 0; i < v.NumField(); i++ {
+		field := t.Field(i)
+		fieldName := field.Name
+		localized := language[lang][fieldName]
+		if localized == "" {
+			localized = fieldName // fallback
+		}
+		value := v.Field(i).Interface()
+		sb.WriteString(fmt.Sprintf("%s: %v\n", localized, value))
+	}
+	return sb.String()
 }
 
 func formatLog(log []string, offset int) string {
