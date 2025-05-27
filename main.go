@@ -7,25 +7,21 @@ import (
 	tea "github.com/charmbracelet/bubbletea"
 )
 
-const maxVisibleLogLines = 10
-
-type model struct {
-	input        string
-	log          []string
-	wood, stone  int
-	pop          int
-	scrollOffset int
-}
-
 func (m model) Init() tea.Cmd {
 	return nil
 }
 
 func main() {
 	m := model{
-		wood:  10,
-		stone: 5,
-		pop:   3,
+		res: ResourceSet{
+			Wood:  10,
+			Stone: 5,
+		},
+		build: BuildingSet{
+			Houses: 0,
+		},
+		pop:    3,
+		popMax: 5,
 	}
 
 	finalModel, err := tea.NewProgram(m).Run()
@@ -36,6 +32,12 @@ func main() {
 
 	if game, ok := finalModel.(model); ok {
 		fmt.Println("Spiel beendet")
-		fmt.Printf("Ressourcen: Holz: %d | Stein: %d | Bevölkerung: %d\n", game.wood, game.stone, game.pop)
+		fmt.Printf("Ressourcen:\n")
+		fmt.Printf("  Holz: %d\n", game.res.Wood)
+		fmt.Printf("  Stein: %d\n", game.res.Stone)
+		fmt.Printf("  Gold: %d\n", game.res.Gold)
+		fmt.Printf("Gebäude:\n")
+		fmt.Printf("  Häuser: %d\n", game.build.Houses)
+		fmt.Printf("Bevölkerung: %d / %d\n", game.pop, game.popMax)
 	}
 }

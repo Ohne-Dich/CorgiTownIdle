@@ -12,7 +12,7 @@ func (m model) View() string {
 		Border(lipgloss.NormalBorder()).
 		BorderForeground(lipgloss.Color("241")).
 		Padding(0, 1).
-		Render(fmt.Sprintf("Holz: %d\nStein: %d\nBevölkerung: %d", m.wood, m.stone, m.pop))
+		Render(fmt.Sprintf("Holz: %d\nStein: %d\nBevölkerung: %d", m.res.Wood, m.res.Stone, m.pop))
 
 	rightBox := lipgloss.NewStyle().
 		Width(30).
