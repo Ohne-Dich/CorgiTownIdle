@@ -120,9 +120,14 @@ func main() {
 		pop:   3,
 	}
 
-	p := tea.NewProgram(m)
-	if err := p.Start(); err != nil {
+	finalModel, err := tea.NewProgram(m).Run()
+	if err != nil {
 		fmt.Println("Fehler:", err)
 		os.Exit(1)
+	}
+
+	if game, ok := finalModel.(model); ok {
+		fmt.Println("Spiel beendet")
+		fmt.Printf("Ressourcen: Holz: %d | Stein: %d | Bevölkerung: %d\n", game.wood, game.stone, game.pop)
 	}
 }
