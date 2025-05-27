@@ -6,7 +6,10 @@
 *.dylib
 
 # The binary that matches your directory name (project name)
+CorgiTownIdle
 
+# some important git and go commands for testing
+memory.txt
 
 # Test binary, built with `go test -c`
 *.test

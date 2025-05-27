@@ -7,7 +7,7 @@ import (
 type Commands struct {
 	name        string
 	description string
-	callback    func(*model) (tea.Cmd, error)
+	callback    func(*model, ...string) (tea.Cmd, error)
 }
 
 func getCommands(m *model) map[string]Commands {
@@ -21,6 +21,11 @@ func getCommands(m *model) map[string]Commands {
 			name:        "help",
 			description: "Shows current commands",
 			callback:    commandHelp,
+		},
+		"build": {
+			name:        "build",
+			description: "Build a <Building>",
+			callback:    commandBuild,
 		},
 	}
 	return variable

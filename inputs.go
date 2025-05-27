@@ -43,9 +43,12 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 }
 
 func handleCommand(m model, input string) (tea.Model, tea.Cmd) {
+	words := strings.Fields(input)
+	command := words[0]
+	args := words[1:]
 	commands := getCommands(&m)
-	if cmd, ok := commands[strings.ToLower(input)]; ok {
-		teaCmd, err := cmd.callback(&m)
+	if cmd, ok := commands[strings.ToLower(command)]; ok {
+		teaCmd, err := cmd.callback(&m, args...)
 		if err != nil {
 			m.log = append(m.log, "Fehler: "+err.Error())
 		}
